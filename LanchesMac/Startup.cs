@@ -1,4 +1,5 @@
 ﻿using LanchesMac.Context;
+using LanchesMac.Models;
 using LanchesMac.Repositories;
 using LanchesMac.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -19,10 +20,18 @@ public class Startup
         services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-        services.AddTransient<ILancheRepository, LancheRepository>();//Criando a injenção de dependência no container nativo para criar a instância do objeto da interface
+        //Criando a injenção de dependência no container nativo para criar a instância do objeto da interface
+        services.AddTransient<ILancheRepository, LancheRepository>();
         services.AddTransient<ICategoriaRepository, CategoriaRepository>();
+        //Habilitando os recusros do HTTPContext
+        services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
         services.AddControllersWithViews();
+        //Habilitando o cache da sessão para otimizar a sessão
+        services.AddMemoryCache();
+
+        services.AddSession();
+
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +51,8 @@ public class Startup
 
         app.UseStaticFiles();
         app.UseRouting();
+        //Ativando o middleware da sessão
+        app.UseSession();
         app.UseAuthorization();
 
         app.UseEndpoints(endpoints =>

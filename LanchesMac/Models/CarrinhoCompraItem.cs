@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.CompilerServices;
 
 namespace LanchesMac.Models
 {
@@ -13,6 +12,6 @@ namespace LanchesMac.Models
         public int Quantidade { get; set; }
         [StringLength(200)]
         public string CarrinhoCompraId { get; set; }
-
+        
     }
 }
