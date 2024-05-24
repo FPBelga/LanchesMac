@@ -25,6 +25,8 @@ public class Startup
         services.AddTransient<ICategoriaRepository, CategoriaRepository>();
         //Habilitando os recusros do HTTPContext
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        //Cria o carrinha a cada requisição
+        services.AddScoped(sp => CarrinhoCompra.GetCarrinho(sp));
 
         services.AddControllersWithViews();
         //Habilitando o cache da sessão para otimizar a sessão
