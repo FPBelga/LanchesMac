@@ -23,6 +23,8 @@ public class Startup
         //Criando a injenção de dependência no container nativo para criar a instância do objeto da interface
         services.AddTransient<ILancheRepository, LancheRepository>();
         services.AddTransient<ICategoriaRepository, CategoriaRepository>();
+        services.AddTransient<IPedidoRepository, PedidoRepository>();
+
         //Habilitando os recusros do HTTPContext
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         //Cria o carrinho a cada requisição
