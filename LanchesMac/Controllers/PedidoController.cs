@@ -14,7 +14,7 @@ namespace LanchesMac.Controllers
             _pedidoRepository = pedidoRepository;
             _carrinhoCompra = carrinhoCompra;
         }
-       
+
         [HttpGet]
         public IActionResult Checkout()
         {
