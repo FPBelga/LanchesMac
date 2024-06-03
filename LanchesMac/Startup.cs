@@ -2,6 +2,7 @@
 using LanchesMac.Models;
 using LanchesMac.Repositories;
 using LanchesMac.Repositories.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace LanchesMac;
@@ -19,6 +20,11 @@ public class Startup
     {
         services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+        //Registrando os serviços do Identity para Controle de Usuário
+        services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
 
         //Criando a injenção de dependência no container nativo para criar a instância do objeto da interface
         services.AddTransient<ILancheRepository, LancheRepository>();
@@ -54,11 +60,18 @@ public class Startup
         app.UseHttpsRedirection();
 
         app.UseStaticFiles();
+        
         app.UseRouting();
+       
         //Ativando o middleware da sessão
         app.UseSession();
-        app.UseAuthorization();
+        
+        //Ativando o middleware de autenticação
+        app.UseAuthentication();
 
+        //Ativando o middleware de Autorização
+        app.UseAuthorization();
+        
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllerRoute(
