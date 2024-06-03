@@ -71,7 +71,11 @@ namespace LanchesMac.Controllers
             }
             else
             {
-                lanches = _lancheRepository.Lanches.Where(p => p.Nome.ToLower().Contains(searchString.ToLower()));
+                lanches = _lancheRepository.Lanches
+                    .Where(p => p.Nome
+                    .ToLower()
+                    .Contains(searchString
+                    .ToLower()));
                 if (lanches.Any())
                     categoriaAtual = "Lanches";
                 else
