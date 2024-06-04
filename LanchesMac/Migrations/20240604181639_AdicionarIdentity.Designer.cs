@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LanchesMac.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240603233959_AdicionarIdentity")]
+    [Migration("20240604181639_AdicionarIdentity")]
     partial class AdicionarIdentity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

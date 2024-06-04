@@ -9,14 +9,13 @@ namespace LanchesMac.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<IdentityUser> userManager,
+            SignInManager<IdentityUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
         }
-
-        //Criando as ações de Login
-        [HttpGet]
+        //Login do usuário
         public IActionResult Login(string returnUrl)
         {
             return View(new LoginViewModel()
@@ -30,9 +29,10 @@ namespace LanchesMac.Controllers
         {
             if (!ModelState.IsValid)
                 return View(loginVM);
+
             var user = await _userManager.FindByNameAsync(loginVM.UserName);
 
-            if (user == null)
+            if (user != null)
             {
                 var result = await _signInManager.PasswordSignInAsync(user, loginVM.Password, false, false);
                 if (result.Succeeded)
@@ -44,12 +44,10 @@ namespace LanchesMac.Controllers
                     return Redirect(loginVM.ReturnUrl);
                 }
             }
-            ModelState.AddModelError("", "Falha ao realizar o Login!!");
+            ModelState.AddModelError("", "Falha ao realizar o login!!");
             return View(loginVM);
         }
-        //Criango as ações de Registro
-
-        [HttpGet]
+        //Registro de usuário
         public IActionResult Register()
         {
             return View();
@@ -59,9 +57,9 @@ namespace LanchesMac.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(LoginViewModel registroVM)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                var user = new IdentityUser() { UserName = registroVM.UserName };
+                var user = new IdentityUser { UserName = registroVM.UserName };
                 var result = await _userManager.CreateAsync(user, registroVM.Password);
 
                 if (result.Succeeded)
@@ -71,10 +69,11 @@ namespace LanchesMac.Controllers
                 }
                 else
                 {
-                    this.ModelState.AddModelError("Registro", "Falha ao realizar o registro");
+                    this.ModelState.AddModelError("Registro", "Falha ao registrar o usuário");
                 }
             }
             return View(registroVM);
         }
+
     }
 }
