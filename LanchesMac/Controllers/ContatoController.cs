@@ -6,7 +6,11 @@ namespace LanchesMac.Controllers
     {
         public IActionResult Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
             return View();
+            }
+            return RedirectToAction("Login", "Account");
         }
     }
 }
