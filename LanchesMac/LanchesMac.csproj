@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="Areas\Admin\Views\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <None Include="Areas\Admin\Views\Shared\_ViewImports.cshtml" />
+    <None Include="Areas\Admin\Views\Shared\_ViewStart.cshtml" />
     <None Include="Views\CarrinhoCompra\Index.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
     <None Include="Views\Lanche\List.cshtml" />
@@ -69,11 +73,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\Admin\Controllers\" />
-    <Folder Include="Areas\Admin\Views\" />
   </ItemGroup>
 
  </Project>
