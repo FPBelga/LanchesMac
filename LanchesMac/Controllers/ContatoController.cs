@@ -8,7 +8,7 @@ namespace LanchesMac.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-            return View();
+                return View();
             }
             return RedirectToAction("Login", "Account");
         }

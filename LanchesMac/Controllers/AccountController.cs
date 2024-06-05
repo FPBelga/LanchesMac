@@ -53,6 +53,7 @@ namespace LanchesMac.Controllers
             return View(loginVM);
         }
         //Registro de usuário
+        [AllowAnonymous]
         public IActionResult Register()
         {
             return View();
