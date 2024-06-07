@@ -43,8 +43,18 @@ public class Startup
         services.AddTransient<ICategoriaRepository, CategoriaRepository>();
         services.AddTransient<IPedidoRepository, PedidoRepository>();
         services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
-
-        //Habilitando os recusros do HTTPContext
+        
+        //Incluindo a Politica de acesso informando o perfil "Admin" como necessário
+        services.AddAuthorization(options =>
+        {
+            options.AddPolicy("Admin",
+                politica =>
+                {
+                    politica.RequireRole("Admin");//Requerendo o perfil "Admin" para a política "Admin"
+                });
+        });
+        
+        //Habilitando os recursos do HTTPContext
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         //Cria o carrinho a cada requisição
         services.AddScoped(sp => CarrinhoCompra.GetCarrinho(sp));
