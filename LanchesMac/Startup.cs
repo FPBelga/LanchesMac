@@ -2,6 +2,7 @@
 using LanchesMac.Models;
 using LanchesMac.Repositories;
 using LanchesMac.Repositories.Interfaces;
+using LanchesMac.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -41,6 +42,7 @@ public class Startup
         services.AddTransient<ILancheRepository, LancheRepository>();
         services.AddTransient<ICategoriaRepository, CategoriaRepository>();
         services.AddTransient<IPedidoRepository, PedidoRepository>();
+        services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
 
         //Habilitando os recusros do HTTPContext
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -56,7 +58,8 @@ public class Startup
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    public void Configure(IApplicationBuilder app, 
+                          IWebHostEnvironment env, ISeedUserRoleInitial seedUserRoleInitial)
     {
         if (env.IsDevelopment())
         {
@@ -70,10 +73,15 @@ public class Startup
         }
         app.UseHttpsRedirection();
 
-        app.UseStaticFiles();
-        
+        app.UseStaticFiles();        
         app.UseRouting();
-       
+
+        //Criar os perfis
+        seedUserRoleInitial.SeeRoles();
+        
+        //Cria os usuários e atribui ao perfil
+        seedUserRoleInitial.SeedUsers();
+
         //Ativando o middleware da sessão
         app.UseSession();
         
