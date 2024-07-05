@@ -3,8 +3,10 @@ using LanchesMac.Models;
 using LanchesMac.Repositories;
 using LanchesMac.Repositories.Interfaces;
 using LanchesMac.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using ReflectionIT.Mvc.Paging;
 
 namespace LanchesMac;
 public class Startup
@@ -27,16 +29,16 @@ public class Startup
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
-        services.Configure<IdentityOptions>(options =>
-        {
-            // Default Password settings.
-            options.Password.RequireDigit = false;
-            options.Password.RequireLowercase = false;
-            options.Password.RequireNonAlphanumeric = false;
-            options.Password.RequireUppercase = false;
-            options.Password.RequiredLength = 3;
-            options.Password.RequiredUniqueChars = 1;
-        });
+        //services.Configure<IdentityOptions>(options =>
+        //{
+        //    // Default Password settings.
+        //    options.Password.RequireDigit = false;
+        //    options.Password.RequireLowercase = false;
+        //    options.Password.RequireNonAlphanumeric = false;
+        //    options.Password.RequireUppercase = false;
+        //    options.Password.RequiredLength = 3;
+        //    options.Password.RequiredUniqueChars = 1;
+        //});
 
         //Criando a injenção de dependência no container nativo para criar a instância do objeto da interface
         services.AddTransient<ILancheRepository, LancheRepository>();
@@ -60,10 +62,23 @@ public class Startup
         services.AddScoped(sp => CarrinhoCompra.GetCarrinho(sp));
 
         services.AddControllersWithViews();
+
+        services.AddPaging(options =>
+        {
+            options.ViewName = "Bootstrap4";
+            options.PageParameterName = "pageindex";
+        });
+
         //Habilitando o cache da sessão para otimizar a sessão
         services.AddMemoryCache();
+        //services.AddDistributedMemoryCache();
 
         services.AddSession();
+        //{
+        //    options.IdleTimeout = TimeSpan.FromSeconds(10);
+        //    options.Cookie.HttpOnly = true;
+        //    options.Cookie.IsEssential = true;
+        //});
 
     }
 

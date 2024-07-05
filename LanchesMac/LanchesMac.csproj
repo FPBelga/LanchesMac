@@ -74,6 +74,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+    <PackageReference Include="ReflectionIT.Mvc.Paging" Version="7.0.0" />
   </ItemGroup>
 
  </Project>

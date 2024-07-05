@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using LanchesMac.Context;
+using LanchesMac.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using LanchesMac.Context;
-using LanchesMac.Models;
-using Microsoft.AspNetCore.Authorization;
+using ReflectionIT.Mvc.Paging;
 
 namespace LanchesMac.Areas.Admin.Controllers
 {
@@ -22,17 +19,32 @@ namespace LanchesMac.Areas.Admin.Controllers
             _context = context;
         }
 
-        // GET: Admin/AdminLanches
-        public async Task<IActionResult> Index()
+        //// GET: Admin/AdminLanches
+        //public async Task<IActionResult> Index()
+        //{
+        //    var appDbContext = _context.Lanches.Include(l => l.Categoria);
+        //    return View(await appDbContext.ToListAsync());
+        //}
+
+        public async Task<IActionResult> Index(string filter, int pageindex = 1, string sort ="Nome")
         {
-            var appDbContext = _context.Lanches.Include(l => l.Categoria);
-            return View(await appDbContext.ToListAsync());
+            var resultado = _context.Lanches.Include(l => l.Categoria).AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(filter))
+            {
+                resultado = resultado.Where(p => p.Nome.Contains(filter));
+            }
+
+            var model = await PagingList.CreateAsync(resultado, 5, pageindex, sort, "Nome");
+            model.RouteValue = new RouteValueDictionary { { "filter", filter } };
+            return View(model);
+
         }
 
         // GET: Admin/AdminLanches/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Lanches == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -51,7 +63,7 @@ namespace LanchesMac.Areas.Admin.Controllers
         // GET: Admin/AdminLanches/Create
         public IActionResult Create()
         {
-            ViewData["CategoriaId"] = new SelectList(_context.Categorias, "CategoriaId", "CategoriaNome");
+            ViewBag.CategoriaId = new SelectList(_context.Categorias, "CategoriaId", "CategoriaNome");
             return View();
         }
 
@@ -68,14 +80,14 @@ namespace LanchesMac.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoriaId"] = new SelectList(_context.Categorias, "CategoriaId", "CategoriaNome", lanche.CategoriaId);
+            ViewBag.CategoriaId = new SelectList(_context.Categorias, "CategoriaId", "CategoriaNome", lanche.CategoriaId);
             return View(lanche);
         }
 
         // GET: Admin/AdminLanches/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Lanches == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -85,7 +97,7 @@ namespace LanchesMac.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["CategoriaId"] = new SelectList(_context.Categorias, "CategoriaId", "CategoriaNome", lanche.CategoriaId);
+            ViewBag.CategoriaId = new SelectList(_context.Categorias, "CategoriaId", "CategoriaNome", lanche.CategoriaId);
             return View(lanche);
         }
 
@@ -128,7 +140,7 @@ namespace LanchesMac.Areas.Admin.Controllers
         // GET: Admin/AdminLanches/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Lanches == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -149,23 +161,15 @@ namespace LanchesMac.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Lanches == null)
-            {
-                return Problem("Entity set 'AppDbContext.Lanches'  is null.");
-            }
             var lanche = await _context.Lanches.FindAsync(id);
-            if (lanche != null)
-            {
-                _context.Lanches.Remove(lanche);
-            }
-            
+            _context.Lanches.Remove(lanche);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool LancheExists(int id)
         {
-          return _context.Lanches.Any(e => e.LancheId == id);
+            return _context.Lanches.Any(e => e.LancheId == id);
         }
     }
 }
