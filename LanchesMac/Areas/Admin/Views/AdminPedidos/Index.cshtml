@@ -1,4 +1,4 @@
-﻿@model ReflectionIT.Mvc.Paging.PagingList<LanchesMac.Models.Pedido>
+﻿@model PagingList<LanchesMac.Models.Pedido>
 
 @{
     ViewData["Title"] = "Index";
@@ -7,7 +7,7 @@
 <h3>Pedidos</h3>
 
 <form method="get" class="form-inline">
-    
+
     <input name="filter" class="form-control" placeholder="filtro"
            value="@Model.RouteValue["Filter"]" />
 
@@ -16,7 +16,7 @@
 
 Total de Pedidos : @Model.TotalRecordCount
 <div>
-   <vc:pager paging-list="@Model"></vc:pager>
+    <vc:pager paging-list="@Model"></vc:pager>
 </div>
 
 <p>
@@ -27,7 +27,10 @@ Total de Pedidos : @Model.TotalRecordCount
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Nome)
+                @Html.SortableHeaderFor(model => model.PedidoId)
+            </th>
+            <th>
+                @Html.SortableHeaderFor(model => model.Nome)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Sobrenome)
@@ -67,6 +70,9 @@ Total de Pedidos : @Model.TotalRecordCount
         {
             <tr>
                 <td>
+                    @Html.DisplayFor(modelItem => item.PedidoId)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Nome)
                 </td>
                 <td>
@@ -102,7 +108,8 @@ Total de Pedidos : @Model.TotalRecordCount
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.PedidoId">Edita</a> |
                     <a asp-action="Details" asp-route-id="@item.PedidoId">Detalhes</a> |
-                    <a asp-action="Delete" asp-route-id="@item.PedidoId">Deleta</a>
+                    <a asp-action="Delete" asp-route-id="@item.PedidoId">Deleta</a> |
+                    <a asp-action="PedidoLanches" asp-route-id="@item.PedidoId">Ver Itens</a>
                 </td>
             </tr>
         }

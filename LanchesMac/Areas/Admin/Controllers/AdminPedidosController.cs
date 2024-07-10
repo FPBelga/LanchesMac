@@ -23,25 +23,23 @@ namespace LanchesMac.Areas.Admin.Controllers
         //{
         //    return View(await _context.Pedidos.ToListAsync());
         //}
-        public async Task<IActionResult> Index(string filter, int pageindex = 1, string sort = "Nome")
+        public async Task<IActionResult> Index(string filter, int pageindex = 1, string sortExpression = "PedidoId")
         {
-            var resultado = _context.Pedidos.AsNoTracking()
-                                      .AsQueryable();
+            var resultado = _context.Pedidos.AsNoTracking().AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(filter))
             {
                 resultado = resultado.Where(p => p.Nome.Contains(filter));
             }
-
-            var model = await PagingList.CreateAsync(resultado, 3, pageindex, sort, "Nome");
+            resultado = resultado.OrderByDescending(p => p.PedidoId);
+            var model = await PagingList.CreateAsync(resultado, 3, pageindex, sortExpression, "PedidoId");
             model.RouteValue = new RouteValueDictionary { { "filter", filter } };
-
             return View(model);
         }
 
 
-            // GET: Admin/AdminPedidos/Details/5
-         public async Task<IActionResult> Details(int? id)
+        // GET: Admin/AdminPedidos/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
