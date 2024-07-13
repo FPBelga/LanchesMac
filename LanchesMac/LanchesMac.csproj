@@ -7,13 +7,35 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="Areas\Admin\Views\AdminCategorias\Create.cshtml" />
+    <None Include="Areas\Admin\Views\AdminCategorias\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\AdminCategorias\Details.cshtml" />
+    <None Include="Areas\Admin\Views\AdminCategorias\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\AdminCategorias\Index.cshtml" />
+    <None Include="Areas\Admin\Views\AdminLanches\Create.cshtml" />
+    <None Include="Areas\Admin\Views\AdminLanches\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\AdminLanches\Details.cshtml" />
+    <None Include="Areas\Admin\Views\AdminLanches\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\AdminLanches\Index.cshtml" />
+    <None Include="Areas\Admin\Views\AdminPedidos\Create.cshtml" />
+    <None Include="Areas\Admin\Views\AdminPedidos\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\AdminPedidos\Details.cshtml" />
+    <None Include="Areas\Admin\Views\AdminPedidos\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\AdminPedidos\Index.cshtml" />
+    <None Include="Areas\Admin\Views\AdminPedidos\PedidoLanches.cshtml" />
+    <None Include="Areas\Admin\Views\AdminPedidos\PedidoNotFound.cshtml" />
+    <None Include="Areas\Admin\Views\Admin\Index.cshtml" />
     <None Include="Areas\Admin\Views\Index.cshtml" />
     <None Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <None Include="Areas\Admin\Views\Shared\_ViewImports.cshtml" />
     <None Include="Areas\Admin\Views\Shared\_ViewStart.cshtml" />
+    <None Include="Areas\Admin\Views\_ViewImports.cshtml" />
+    <None Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <None Include="Views\CarrinhoCompra\Index.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
     <None Include="Views\Lanche\List.cshtml" />
+    <None Include="Views\Shared\Components\CarrinhoCompraResumo\Default.cshtml" />
+    <None Include="Views\Shared\Components\CategoriaMenu\Default.cshtml" />
     <None Include="Views\Shared\Error.cshtml" />
     <None Include="Views\Shared\_Carousel.cshtml" />
     <None Include="Views\Shared\_LanchesResumo.cshtml" />
@@ -74,7 +96,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
-    <PackageReference Include="ReflectionIT.Mvc.Paging" Version="7.0.0" />
+    <PackageReference Include="ReflectionIT.Mvc.Paging" Version="6.0.1" />
   </ItemGroup>
 
  </Project>

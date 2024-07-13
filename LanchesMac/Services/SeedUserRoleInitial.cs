@@ -7,15 +7,16 @@ namespace LanchesMac.Services
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public SeedUserRoleInitial(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public SeedUserRoleInitial(UserManager<IdentityUser> userManager, 
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
         }
-        // Criando os Perfis de usuários
-        public void SeeRoles()
+
+        public void SeedRoles()
         {
-            if (!_roleManager.RoleExistsAsync("Member").Result)
+            if(!_roleManager.RoleExistsAsync("Member").Result)
             {
                 IdentityRole role = new IdentityRole();
                 role.Name = "Member";
@@ -33,20 +34,22 @@ namespace LanchesMac.Services
 
         public void SeedUsers()
         {
-            if (_userManager.FindByEmailAsync("usuario@localhost").Result == null) {
+            if(_userManager.FindByEmailAsync("usuario@localhost").Result == null)
+            {
                 IdentityUser user = new IdentityUser();
                 user.UserName = "usuario@localhost";
                 user.Email = "usuario@localhost";
                 user.NormalizedUserName = "USUARIO@LOCALHOST";
                 user.NormalizedEmail = "USUARIO@LOCALHOST";
                 user.EmailConfirmed = true;
+                user.LockoutEnabled = false;
                 user.SecurityStamp = Guid.NewGuid().ToString();
 
-                IdentityResult result = _userManager.CreateAsync(user, "Numsey#2022").Result;
+                IdentityResult result = _userManager.CreateAsync(user,"Numsey#2022").Result;
 
-                if (result.Succeeded)
+                if(result.Succeeded)
                 {
-                    _userManager.AddToRoleAsync(user, "Member").Wait();
+                    _userManager.AddToRoleAsync(user,"Member").Wait();
                 }
             }
 
@@ -58,6 +61,7 @@ namespace LanchesMac.Services
                 user.NormalizedUserName = "ADMIN@LOCALHOST";
                 user.NormalizedEmail = "ADMIN@LOCALHOST";
                 user.EmailConfirmed = true;
+                user.LockoutEnabled = false;
                 user.SecurityStamp = Guid.NewGuid().ToString();
 
                 IdentityResult result = _userManager.CreateAsync(user, "Numsey#2022").Result;
@@ -68,8 +72,5 @@ namespace LanchesMac.Services
                 }
             }
         }
-      
     }
 }
-    
-

@@ -44,6 +44,7 @@ namespace LanchesMac.Controllers
             }
             return RedirectToAction("Index");
         }
+
         [Authorize]
         public IActionResult RemoverItemDoCarrinhoCompra(int lancheId)
         {

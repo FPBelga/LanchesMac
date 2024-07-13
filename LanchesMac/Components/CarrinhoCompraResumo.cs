@@ -18,7 +18,7 @@ namespace LanchesMac.Components
             var itens = _carrinhoCompra.GetCarrinhoCompraItens();
 
             //var itens = new List<CarrinhoCompraItem>()
-            //{ 
+            //{
             //    new CarrinhoCompraItem(),
             //    new CarrinhoCompraItem()
             //};

@@ -9,7 +9,7 @@ namespace LanchesMac.Repositories
         private readonly AppDbContext _appDbContext;
         private readonly CarrinhoCompra _carrinhoCompra;
 
-        public PedidoRepository(AppDbContext appDbContext,
+        public PedidoRepository(AppDbContext appDbContext, 
             CarrinhoCompra carrinhoCompra)
         {
             _appDbContext = appDbContext;
@@ -33,7 +33,7 @@ namespace LanchesMac.Repositories
                     PedidoId = pedido.PedidoId,
                     Preco = carrinhoItem.Lanche.Preco
                 };
-                _appDbContext.PedidosDetalhes.Add(pedidoDetail);
+                _appDbContext.PedidoDetalhes.Add(pedidoDetail); 
             }
             _appDbContext.SaveChanges();
         }

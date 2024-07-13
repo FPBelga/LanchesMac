@@ -35,7 +35,7 @@ namespace LanchesMac.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PedidosDetalhes",
+                name: "PedidoDetalhes",
                 columns: table => new
                 {
                     PedidoDetalheId = table.Column<int>(type: "int", nullable: false)
@@ -47,15 +47,15 @@ namespace LanchesMac.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PedidosDetalhes", x => x.PedidoDetalheId);
+                    table.PrimaryKey("PK_PedidoDetalhes", x => x.PedidoDetalheId);
                     table.ForeignKey(
-                        name: "FK_PedidosDetalhes_Lanches_LancheId",
+                        name: "FK_PedidoDetalhes_Lanches_LancheId",
                         column: x => x.LancheId,
                         principalTable: "Lanches",
                         principalColumn: "LancheId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PedidosDetalhes_Pedidos_PedidoId",
+                        name: "FK_PedidoDetalhes_Pedidos_PedidoId",
                         column: x => x.PedidoId,
                         principalTable: "Pedidos",
                         principalColumn: "PedidoId",
@@ -63,20 +63,20 @@ namespace LanchesMac.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_PedidosDetalhes_LancheId",
-                table: "PedidosDetalhes",
+                name: "IX_PedidoDetalhes_LancheId",
+                table: "PedidoDetalhes",
                 column: "LancheId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PedidosDetalhes_PedidoId",
-                table: "PedidosDetalhes",
+                name: "IX_PedidoDetalhes_PedidoId",
+                table: "PedidoDetalhes",
                 column: "PedidoId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "PedidosDetalhes");
+                name: "PedidoDetalhes");
 
             migrationBuilder.DropTable(
                 name: "Pedidos");

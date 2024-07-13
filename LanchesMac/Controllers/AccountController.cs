@@ -8,17 +8,16 @@ namespace LanchesMac.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<IdentityUser> _userManager; 
         private readonly SignInManager<IdentityUser> _signInManager;
 
-        public AccountController(UserManager<IdentityUser> userManager,
+        public AccountController(UserManager<IdentityUser> userManager, 
             SignInManager<IdentityUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
         }
 
-        //Login do usuário
         [AllowAnonymous]
         public IActionResult Login(string returnUrl)
         {
@@ -39,7 +38,9 @@ namespace LanchesMac.Controllers
 
             if (user != null)
             {
-                var result = await _signInManager.PasswordSignInAsync(user, loginVM.Password, false, false);
+                var result = await _signInManager.PasswordSignInAsync(user, 
+                    loginVM.Password, false, false);
+
                 if (result.Succeeded)
                 {
                     if (string.IsNullOrEmpty(loginVM.ReturnUrl))
@@ -51,8 +52,8 @@ namespace LanchesMac.Controllers
             }
             ModelState.AddModelError("", "Falha ao realizar o login!!");
             return View(loginVM);
-        }
-        //Registro de usuário
+        }//
+
         [AllowAnonymous]
         public IActionResult Register()
         {
@@ -64,12 +65,12 @@ namespace LanchesMac.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(LoginViewModel registroVM)
         {
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
                 var user = new IdentityUser { UserName = registroVM.UserName };
                 var result = await _userManager.CreateAsync(user, registroVM.Password);
 
-                if (result.Succeeded)
+                if(result.Succeeded)
                 {
                     //await _signInManager.SignInAsync(user, isPersistent: false);
                     await _userManager.AddToRoleAsync(user, "Member");
@@ -80,7 +81,7 @@ namespace LanchesMac.Controllers
                     this.ModelState.AddModelError("Registro", "Falha ao registrar o usuário");
                 }
             }
-            return View(registroVM);
+            return View(registroVM);    
         }
 
         [AllowAnonymous]
@@ -90,13 +91,12 @@ namespace LanchesMac.Controllers
             HttpContext.Session.Clear();
             HttpContext.User = null;
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index","Home");
         }
 
         public IActionResult AccessDenied()
         {
             return View();
         }
-
     }
 }

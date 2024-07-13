@@ -36,13 +36,13 @@ namespace LanchesMac.Controllers
             _carrinhoCompra.CarrinhoCompraItems = items;
 
             //verifica se existem itens de pedido
-            if (_carrinhoCompra.CarrinhoCompraItems.Count == 0)
+            if(_carrinhoCompra.CarrinhoCompraItems.Count == 0)
             {
                 ModelState.AddModelError("", "Seu carrinho esta vazio, que tal incluir um lanche...");
             }
 
             //calcula o total de itens e o total do pedido
-            foreach (var item in items)
+            foreach(var item in items)
             {
                 totalItensPedido += item.Quantidade;
                 precoTotalPedido += (item.Lanche.Preco * item.Quantidade);
@@ -53,7 +53,7 @@ namespace LanchesMac.Controllers
             pedido.PedidoTotal = precoTotalPedido;
 
             //valida os dados do pedido
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
                 //cria o pedido e os detalhes
                 _pedidoRepository.CriarPedido(pedido);
