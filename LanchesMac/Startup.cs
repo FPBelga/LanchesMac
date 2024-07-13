@@ -113,7 +113,6 @@ public class Startup
         //Ativando o middleware de autenticação
         app.UseAuthentication();
 
-        //Ativando o middleware de Autorização
         app.UseAuthorization();
         
         app.UseEndpoints(endpoints =>
