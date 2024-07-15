@@ -6,6 +6,7 @@ using LanchesMac.Repositories.Interfaces;
 using LanchesMac.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
 using ReflectionIT.Mvc.Paging;
 
@@ -28,6 +29,9 @@ public class Startup
         services.AddIdentity<IdentityUser, IdentityRole>()
              .AddEntityFrameworkStores<AppDbContext>()
              .AddDefaultTokenProviders();
+
+       // services.ConfigureApplicationCookie(options => options.AccessDeniedPath = "Home/AccesDenied");
+        services.Configure<ConfigurationImagens>(Configuration.GetSection("ConfigurationPastaImagens"));
 
         //services.Configure<IdentityOptions>(options =>
         //{
