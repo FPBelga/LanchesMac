@@ -32,6 +32,16 @@
         @await Html.PartialAsync("_IndexPartial")
     </section>
 
+    <h2>Os preferidos da semana </h2>
+    <h4>Tá com fome ???</h4>
+
+    <div class="row">
+    @foreach(var lanche in Model.LanchesPreferidos)
+    {
+        <partial name="_LanchesResumo" for="@lanche"/>
+    }
+
+</div>
      <br />
     
     <section id="contato">
@@ -48,9 +58,9 @@
              <div class="col-10 col-md-5 col-lg-5 offset-1" style="color: black">
                  <h4>Tem alguma dúvida ?</h4>
                  <ul class="list-unstyled">
-                     <li class="py-1"> Av. Bueno de Andrade, 56 Setor-2 Quadra-7</li>
-                     <li class="py-1"> +55- 999 9123 502</li>
-                     <li class="py-1"> <a href="lanchesmac@hotmail.com" style="color: blue">lanchesmac@hotmail.com</a></li>
+                     <li class="py-1"> Rua Geraldo Maxumiliano Alves, 136 - Verbo Divino</li>
+                     <li class="py-1"> +55- 21 99567 0844</li>
+                     <li class="py-1"> <a href="lanchesmac@gmail.com" style="color: blue">lanchesmac@gmail.com</a></li>
                  </ul>
              </div>
          </div>
