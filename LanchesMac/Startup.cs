@@ -1,4 +1,5 @@
-﻿using LanchesMac.Areas.Services;
+﻿using LanchesMac.Areas.Admin.Servicos;
+using LanchesMac.Areas.Services;
 using LanchesMac.Context;
 using LanchesMac.Models;
 using LanchesMac.Repositories;
