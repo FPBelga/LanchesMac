@@ -25,12 +25,12 @@
                     <a class="nav-link text-light" asp-area="" asp-controller="Contato" asp-action="Index">Contato</a>
                     <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     <form class="navbar-form navbar-right" asp-controller="Lanche" asp-action="Search" method="get">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Procurar produto" name="searchString" value="@ViewData["searchString"]">
-                        </div>
+                      <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Procurar produto" name="searchString" value="@ViewData["searchString"]">
+                      </div>
                     </form>
                     @await Html.PartialAsync("_LoginPartial")
-                    @if (User.IsInRole("Admin"))
+                    @if(User.IsInRole("Admin"))
                     {
                         <a class="nav-link text-light" asp-area="Admin" asp-controller="Admin" asp-action="Index">Admin</a>
                     }
@@ -44,13 +44,14 @@
         </main>
     </div>
 
-   @*  <footer class="border-top footer text-muted">
+  @*  <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - LanchesMac
+            &copy; 2021 - LanchesMac 
         </div>
-    </footer> *@
+    </footer>*@
 
-    <partial name="_Footer" />
+     <partial name="_Footer"/>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
