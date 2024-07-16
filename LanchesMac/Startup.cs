@@ -49,7 +49,9 @@ public class Startup
         services.AddTransient<ICategoriaRepository, CategoriaRepository>();
         services.AddTransient<IPedidoRepository, PedidoRepository>();
         services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
+
         services.AddScoped<RelatorioVendasService>();
+        services.AddScoped<GraficoVendasService>();
 
         //Incluindo a Politica de acesso informando o perfil "Admin" como necessário
         services.AddAuthorization(options =>
@@ -63,7 +65,10 @@ public class Startup
 
         //Habilitando os recursos do HTTPContext
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-        //Cria o carrinho a cada requisição
+        
+        //Cria o carrinho a cada requisição. Cria um objeto scoped, ou seja um objeto que esta associado a requisição
+        //Isso significa que se  duas pessoas solicitarem o objeto CarrinhoCompra ao mesmo tempo
+        //elas vão obter instâncias diferentes
         services.AddScoped(sp => CarrinhoCompra.GetCarrinho(sp));
 
         services.AddControllersWithViews();
