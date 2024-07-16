@@ -40,7 +40,7 @@
         var data = google.visualization.arrayToDataTable(dataArray);
 
         var options = {
-            title: 'Lanches - Vendas : últimos 7 dias',
+            title: 'Lanches - Vendas : últimos 7 dias', is3D: true,
 
             curveType: 'function',
             legend: { position: 'bottom' },
@@ -48,16 +48,17 @@
             chartArea: {
                 width: '70%'
             },
-            colors: ['#5202b5', '#d2a828'],
+            colors: ['#5202b5', '#d2a828', '#CD5C5C', '#A9DFBF', '#2471A3'],
             hAxis: {
                 title: 'Lanches',
                 minValue: 0
             },
             vAxis: {
                 title: 'Valor Total (em Reais)'
+
             }
         };
-        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
         chart.draw(data, options);
     }
 
