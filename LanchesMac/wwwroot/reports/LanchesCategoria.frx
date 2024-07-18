@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="07/18/2024 18:50:28" ReportInfo.Modified="07/18/2024 19:22:43" ReportInfo.CreatorVersion="2023.2.0.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqA5Plf7HbBq0k9ZACy4T9barLyGXy0xuJCSl5IUInoS0oYIiktgqhPrfjE6+v1llZIk8m57lwkFSpeVoFyZuD8kLpaYThp7dAwYqnJnVnWAwhtdCpMrtVCJj7sjoiJ98tSflTBMG/zwYs032YrQpEHGzGeeiS1Xwo/xIg9CyZqXQnEjnSHy5pr0maO60mlm5Rq/gPZuQxv5HNjIFeb0fXUveVq3FQ7l3BgIyobfgEGY4=">
+      <TableDataSource Name="Lanches" DataType="System.Int32" Enabled="true" TableName="Lanches">
+        <Column Name="LancheId" DataType="System.Int32"/>
+        <Column Name="Nome" DataType="System.String"/>
+        <Column Name="DescricaoCurta" DataType="System.String"/>
+        <Column Name="DescricaoDetalhada" DataType="System.String"/>
+        <Column Name="Preco" DataType="System.Decimal"/>
+        <Column Name="ImagemUrl" DataType="System.String"/>
+        <Column Name="ImagemThumbnailUrl" DataType="System.String"/>
+        <Column Name="IsLanchePreferido" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="EmEstoque" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="CategoriaId" DataType="System.Int32"/>
+      </TableDataSource>
+      <TableDataSource Name="Categorias" DataType="System.Int32" Enabled="true" TableName="Categorias">
+        <Column Name="CategoriaId" DataType="System.Int32"/>
+        <Column Name="CategoriaNome" DataType="System.String"/>
+        <Column Name="Descricao" DataType="System.String"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Relation Name="Categorias_Lanches" ParentDataSource="Categorias" ChildDataSource="Lanches" ParentColumns="CategoriaId" ChildColumns="CategoriaId" Enabled="true"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="37.8">
+      <TextObject Name="Text9" Left="189" Top="9.45" Width="274.05" Height="18.9" Text="Lanches por Categoria" HorzAlign="Center" Font="Arial, 12pt, style=Bold"/>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="41.8" Width="718.2" Height="56.7" Fill.Color="Turquoise" StartNewPage="true" DataSource="Categorias">
+      <TextObject Name="Text1" Top="18.9" Width="236.25" Height="18.9" Text="[Categorias.CategoriaNome]" Font="Arial, 12pt, style=Bold"/>
+      <TextObject Name="Text3" Left="226.8" Top="18.9" Width="481.95" Height="18.9" Text="[Categorias.Descricao]" Font="Arial, 10pt"/>
+      <DataBand Name="Data2" Top="144.3" Width="718.2" Height="66.15" DataSource="Lanches">
+        <TextObject Name="Text4" Left="9.45" Top="28.35" Width="189" Height="18.9" Text="[Lanches.Nome]" Font="Arial, 10pt"/>
+        <TextObject Name="Text5" Left="226.8" Top="28.35" Width="226.8" Height="18.9" Text="[Lanches.DescricaoCurta]" Font="Arial, 10pt"/>
+        <TextObject Name="Text7" Left="453.6" Top="28.35" Width="122.85" Height="18.9" Text="[Lanches.Preco]" Format="Currency" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" WordWrap="false" Font="Arial, 10pt, style=Bold" Trimming="EllipsisCharacter"/>
+        <PictureObject Name="Picture1" Left="604.8" Width="94.5" Height="66.15" DataColumn="Lanches.ImagemUrl"/>
+        <DataHeaderBand Name="DataHeader1" Top="102.5" Width="718.2" Height="37.8" Fill.Color="WhiteSmoke">
+          <TextObject Name="Text2" Left="9.45" Top="9.45" Width="94.5" Height="18.9" Fill.Color="WhiteSmoke" Text="Nome" Font="Arial, 10pt"/>
+          <TextObject Name="Text6" Left="226.8" Top="9.45" Width="94.5" Height="18.9" Fill.Color="WhiteSmoke" Text="Descricao" Font="Arial, 10pt"/>
+          <TextObject Name="Text8" Left="472.5" Top="9.45" Width="94.5" Height="18.9" Fill.Color="WhiteSmoke" Text="Preco" HorzAlign="Right" Font="Arial, 10pt, style=Bold"/>
+        </DataHeaderBand>
+      </DataBand>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="214.45" Width="718.2" Height="18.9"/>
+  </ReportPage>
+</Report>

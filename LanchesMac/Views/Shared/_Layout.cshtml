@@ -12,20 +12,14 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="~/images/logo_lanche2-sfd.png" />&nbsp; &nbsp; LanchesMac
+                    <img src="~/images/logo_lanche2-sfd.png" />&nbsp; &nbsp; <h4>BelgaLanches</h4>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    @await Component.InvokeAsync("CarrinhoCompraResumo")
-                    @await Component.InvokeAsync("CategoriaMenu")
-                    <form class="navbar-form navbar-right" asp-controller="Lanche" asp-action="Search" method="get">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Procurar produto" name="searchString" value="@ViewData["searchString"]">
-                        </div>
-                    </form>
+                <div  class="navbar-collapse collapse d-sm-inline-flex flex-md-row-reverse" >
+                                      
                     @await Html.PartialAsync("_LoginPartial")
                     @if (User.IsInRole("Admin"))
                     {
@@ -33,8 +27,15 @@
                     }
                     <a class="nav-link text-light" asp-area="" asp-controller="Contato" asp-action="Index">Contato</a>
                     <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                   
                     
+                    @await Component.InvokeAsync("CarrinhoCompraResumo")
+                    @await Component.InvokeAsync("CategoriaMenu")
+
+                    <form class="navbar-form navbar-left" asp-controller="Lanche" asp-action="Search" method="get" >
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Procurar produto" name="searchString" value="@ViewData["searchString"]">
+                        </div>
+                    </form>                    
                 </div>
             </div>
         </nav>
@@ -43,14 +44,8 @@
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
-    </div>
-    
+    </div>    
     <partial name="_Footer" />
-    @* <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - LanchesMac
-        </div>
-    </footer> *@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

@@ -1,21 +1,4 @@
-//namespace LanchesMac;
-//public class Program
-//{
-//    public static void Main(string[] args)
-//    {
-//        CreateHostBuilder(args).Build().Run();
-//    }
-
-//    public static IHostBuilder CreateHostBuilder(string[] args) =>
-//        Host.CreateDefaultBuilder(args)
-//            .ConfigureWebHostDefaults(webBuilder =>
-//            {
-//                webBuilder.UseStartup<Startup>();
-//            });
-//}
-
-using LanchesMac.Areas.Admin.Servicos;
-using LanchesMac.Areas.Services;
+using LanchesMac.Areas.Admin.Services;
 using LanchesMac.Context;
 using LanchesMac.Models;
 using LanchesMac.Repositories;
@@ -30,25 +13,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+FastReport.Utils.RegisteredObjects.AddConnection(typeof(AppDbContext));
 
 //Registrando os serviços do Identity para Controle de Usuário
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
      .AddEntityFrameworkStores<AppDbContext>()
      .AddDefaultTokenProviders();
 
-// builder.Services.ConfigureApplicationCookie(options => options.AccessDeniedPath = "Home/AccesDenied");
 builder.Services.Configure<ConfigurationImagens>(builder.Configuration.GetSection("ConfigurationPastaImagens"));
-
-//builder.Services.Configure<IdentityOptions>(options =>
-//{
-//    // Default Password settings.
-//    options.Password.RequireDigit = false;
-//    options.Password.RequireLowercase = false;
-//    options.Password.RequireNonAlphanumeric = false;
-//    options.Password.RequireUppercase = false;
-//    options.Password.RequiredLength = 3;
-//    options.Password.RequiredUniqueChars = 1;
-//});
 
 //Criando a injenção de dependência no container nativo para criar a instância do objeto da interface
 builder.Services.AddTransient<ILancheRepository, LancheRepository>();
@@ -58,6 +30,7 @@ builder.Services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
 
 builder.Services.AddScoped<RelatorioVendasService>();
 builder.Services.AddScoped<GraficoVendasService>();
+builder.Services.AddScoped<RelatorioLanchesService>();
 
 //Incluindo a Politica de acesso informando o perfil "Admin" como necessário
 builder.Services.AddAuthorization(options =>
@@ -109,6 +82,7 @@ else
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
+app.UseFastReport();
 app.UseRouting();
 
 CriarPerfisUsuarios(app);

@@ -1,4 +1,4 @@
-﻿using LanchesMac.Areas.Admin.Servicos;
+﻿using LanchesMac.Areas.Admin.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
