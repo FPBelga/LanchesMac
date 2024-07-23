@@ -1,3 +1,4 @@
+using FastReport.Data;
 using LanchesMac.Areas.Admin.Services;
 using LanchesMac.Context;
 using LanchesMac.Models;
@@ -13,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-FastReport.Utils.RegisteredObjects.AddConnection(typeof(AppDbContext));
+FastReport.Utils.RegisteredObjects.AddConnection(typeof(MsSqlDataConnection));
 
 //Registrando os serviços do Identity para Controle de Usuário
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
