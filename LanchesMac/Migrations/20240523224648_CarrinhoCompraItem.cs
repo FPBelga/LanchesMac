@@ -9,7 +9,7 @@ namespace LanchesMac.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "CarrinhoCompra",
+                name: "CarrinhoCompraItens",
                 columns: table => new
                 {
                     CarrinhoCompraItemId = table.Column<int>(type: "int", nullable: false)
@@ -20,24 +20,24 @@ namespace LanchesMac.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CarrinhoCompra", x => x.CarrinhoCompraItemId);
+                    table.PrimaryKey("PK_CarrinhoCompraItens", x => x.CarrinhoCompraItemId);
                     table.ForeignKey(
-                        name: "FK_CarrinhoCompra_Lanches_LancheId",
+                        name: "FK_CarrinhoCompraItens_Lanches_LancheId",
                         column: x => x.LancheId,
                         principalTable: "Lanches",
                         principalColumn: "LancheId");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CarrinhoCompra_LancheId",
-                table: "CarrinhoCompra",
+                name: "IX_CarrinhoCompraItens_LancheId",
+                table: "CarrinhoCompraItens",
                 column: "LancheId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CarrinhoCompra");
+                name: "CarrinhoCompraItens");
         }
     }
 }
